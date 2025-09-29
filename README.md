@@ -114,12 +114,11 @@ sequenceDiagram
     deactivate S
     C-->>A: Resposta da API (200/4xx/5xx)
     deactivate C
-
+```
 ---
 
 ### **Bloco 2: Diagrama de Classes**
 
-```markdown
 ```mermaid
 classDiagram
     direction LR
