@@ -48,16 +48,16 @@ A API estará rodando e pronta para receber requisições na porta **`8090`**.
 | **Password** |                              |
 ---
 
-## ✨ Funcionalidades (Endpoints)
+### ✨ Funcionalidades (Endpoints)
 
 A API oferece as seguintes operações:
 
 | Operação | Método HTTP | Endpoint | Descrição |
-| :--- | :--- | :--- | :--- |
-| **Pagamento** | `POST` | `http://localhost:8090/api/v1/pagamentos` | Cria uma nova transação de pagamento. **(Requer Request Body)** |
-| **Estorno** | `POST` | `http://localhost:8090/api/v1/pagamentos/{id}/estorno` | Solicita o estorno de uma transação existente, usando o ID. |
-| **Consulta (Por ID)** | `GET` | `http://localhost:8090/api/v1/pagamentos/{id}` | Retorna os detalhes de uma transação específica pelo seu ID. |
-| **Consulta (Todos)** | `GET` | `http://localhost:8090/api/v1/pagamentos?page=0&size=20&sort=estabelecimento,desc` | Retorna a lista de todas as transações de forma **paginada** e com **ordenação**. |
+| :--- |:------------| :--- | :--- |
+| **Pagamento** | `POST`      | `http://localhost:8090/api/v1/pagamentos` | Cria uma nova transação de pagamento. **(Requer Request Body)** |
+| **Estorno** | `PUT`       | `http://localhost:8090/api/v1/pagamentos/{id}/estorno` | Solicita o estorno de uma transação existente, usando o ID. |
+| **Consulta (Por ID)** | `GET`       | `http://localhost:8090/api/v1/pagamentos/{id}` | Retorna os detalhes de uma transação específica pelo seu ID. |
+| **Consulta (Todos)** | `GET`       | `http://localhost:8090/api/v1/pagamentos?page=0&size=20&sort=estabelecimento,desc` | Retorna a lista de todas as transações de forma **paginada** e com **ordenação**. |
 
 ### Detalhes da Consulta (Todos)
 
@@ -68,11 +68,34 @@ A consulta paginada permite ordenação pelos seguintes campos, que estão na en
 
 O exemplo de URL mostra a ordenação por `estabelecimento` de forma descendente (`desc`).
 
+### RequestBody POST Pagamento:
+```json
+{
+  "transacao": {
+    "id": "1",
+    "cartao": "1234 **** **** 4321",
+    "descricao": {
+      "valor": "350.00",
+      "dataHora": "27/09/2025 18:10:02",
+      "estabelecimento": "Mundo do Cão",
+      "nsu": "102937487",
+      "codigoAutorizacao": "2342342"
+    },
+    "formaPagamento": {
+      "tipo": "AVISTA",
+      "parcelas": "2"
+    }
+  }
+} 
+```
+        
+
+
 ---
 
-## 📐 Design e Premissas
+### 📐 Premissas adotadas
 
-O projeto foi construído com as seguintes premissas para simular um ambiente real:
+O projeto foi construído com as seguintes premissas:
 
 1.  **IDs de Transação e Timestamps:** Assumiu-se que o `transacaoId` e o `dataCriado` são gerados e validados por um serviço externo antes de chegar a esta API.
 2.  **Autorização Externa:** O processo de autorização é simulado por uma classe simples (`Serviço Externo (Autorização)`), que retorna `AUTORIZADO` ou `NEGADO`.
