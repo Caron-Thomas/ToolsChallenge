@@ -1,6 +1,8 @@
 package com.toolschallenge.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.toolschallenge.enuns.StatusDoPagamento;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -17,6 +19,7 @@ public class Descricao {
 
     @NotNull
     @NotEmpty
+    @JsonSerialize(using = ToStringSerializer.class)
     private BigDecimal valor;
 
     @NotEmpty
@@ -25,7 +28,10 @@ public class Descricao {
 
     @NotEmpty
     private String estabelecimento;
+
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long nsu;
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long codigoAutorizacao;
 
     @Enumerated(EnumType.STRING)

@@ -31,9 +31,16 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(ConnectorStartFailedException.class)
+    @ExceptionHandler({
+            ConnectorStartFailedException.class,
+            ProblemaComunicacaoException.class})
     public ResponseEntity<String> handlerProblemaComunicacaoException(ProblemaComunicacaoException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.SERVICE_UNAVAILABLE);
+    }
+
+    @ExceptionHandler(TransacaoJaExisteException.class)
+    public ResponseEntity<String> handlerTransacaoJaExisteException(TransacaoJaExisteException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
     }
 
    /* @ExceptionHandler(Exception.class)
